@@ -7,4 +7,4 @@ I don't have any plans to update this, or even write instructions on how to set 
 # Features
 ## Automatic Fishing
 Through the `pydirectinput` library, the program is able to send inputs to the game. After sending the input to send your fishing rod out, the program will monitor the screen until the exclamation mark bubble appears. Once that shows up, it sends the input to reel it in.  
-<img src="readme_img/reelin.mp4" style="width:100%;">
+<img src="https://cdn.discordapp.com/attachments/903432040056229950/1340068818881351854/reelin.mp4?ex=67b103d7&is=67afb257&hm=2c5dd3b5458a7a7f5d371ee32417c1e5b0c55e8cb36aef34b4da133ddf455ae3&" style="width:100%;">
