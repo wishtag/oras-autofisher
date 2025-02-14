@@ -1,8 +1,0 @@
-pip install pillow
-pip install imagehash
-pip install numpy<2
-pip install pydirectinput
-pip install pyautogui
-pip install opencv-python
-pip install pytz
-pip install discord-webhook
