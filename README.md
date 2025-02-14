@@ -15,4 +15,7 @@ In ORAS, shiny pokémon have a special animation that plays when they are encoun
 If the pokémon is shiny, then the program will stop. If the pokémon is not shiny, the program will send the inputs to run away from the encounter. After that, it starts fishing again.  
 ## Discord Notifying
 Through the use of a discord webhook, the program will notify you when it finds a shiny.  
-<img src="readme_img/Webhookoutput.png" alt="Banner" style="center">
+<img src="readme_img/Webhookoutput.png" alt="Webhook">
+# Showcase
+Here's a little video showing off the program in action  
+https://github.com/user-attachments/assets/e70163cd-f107-4e91-9837-0fb4a49f178e
