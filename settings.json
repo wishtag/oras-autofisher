@@ -1,5 +1,9 @@
 {
+    "possible_encounters": 2,
     "bounding_boxes": {
         "exclamation": [1406, 247, 1468, 308]
+    },
+    "buttons": {
+        "fish": "y"
     }
 }

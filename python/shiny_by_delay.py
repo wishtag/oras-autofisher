@@ -12,21 +12,19 @@ import vgamepad as vg
 gamepad = vg.VX360Gamepad()
 
 def read_json(file):
-    f = open (file, "r")
-    data = json.loads(f.read())
-    f.close()
+    with open(os.path.abspath(file), 'r') as f:
+        data = json.loads(f.read())
     return data
 
 def write_json(file, object):
-    f = open (file, "w")
-    json.dump(object, f)
-    f.close()
+    with open(os.path.abspath(file), 'w') as f:
+        json.dump(object, f)
 
-json_time = read_json("resets.json")["total_seconds"]
-json_time2 = read_json("resets.json")["total_seconds_since_last_shiny"]
+json_time = read_json("./resets.json")["total_seconds"]
+json_time2 = read_json("./resets.json")["total_seconds_since_last_shiny"]
 similarity = 100
 encountered = 100
-possible_encounters = 2
+possible_encounters = read_json("./settings.json")["possible_encounters"]
 isShiny = False
 
 hour = datetime.now(timezone('US/Central')).hour
