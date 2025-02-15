@@ -3,11 +3,13 @@ from PIL import ImageGrab, Image
 import pyautogui
 import imagehash
 import time
-import pydirectinput
 from datetime import datetime
 from pytz import timezone
 import json
 from discord_webhook import DiscordWebhook, DiscordEmbed
+import vgamepad as vg
+
+gamepad = vg.VX360Gamepad()
 
 def read_json(file):
     f = open (file, "r")
