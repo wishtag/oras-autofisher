@@ -8,7 +8,7 @@ I don't have any plans to update this, or even write instructions on how to set 
 **UPDATE:** I changed my mind and DID end up updating it. I've added a settings file and recoded a lot. The instructions probably aren't the best but I hope whoever is reading this is able to figure it out. Even with the changes I've made this still isn't perfect, though.
 # Features
 ## Automatic Fishing
-Through the `pydirectinput` library, the program is able to send inputs to the game. After sending the input to send your fishing rod out, the program will monitor the screen until the exclamation mark bubble appears. Once that shows up, it sends the input to reel it in.  
+Through the `vgamepad` library, the program is able to send inputs to the game. After sending the input to send your fishing rod out, the program will monitor the screen until the exclamation mark bubble appears. Once that shows up, it sends the input to reel it in.  
 ## Logging
 Tracks the current chain, elapsed time, encounters, elapsed time since last shiny, and encounters since last shiny.
 ## Shiny Detection
