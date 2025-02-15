@@ -40,8 +40,6 @@ buttons = settings["buttons"]
 colors = settings["colors"]
 bounding_boxes = settings["bounding_boxes"]
 
-similarity = 100
-encountered = 100
 isShiny = False
 
 hour = datetime.now(timezone('US/Central')).hour
@@ -87,8 +85,6 @@ except:
     pass
 
 while isShiny == False:
-    encountered = 100
-    similarity = 100
     delay = 0
     press_and_release("Y")
     #finding the !! bubble
@@ -119,6 +115,8 @@ while isShiny == False:
             encounter.close()
         except:
             pass
+        
+        encountered = 100
         while encountered == 100:
             time.sleep(0.01)
             delay = delay + 1

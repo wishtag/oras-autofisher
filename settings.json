@@ -1,15 +1,19 @@
 {
     "possible_encounters": 3,
     "encounter_names": ["Wailmer", "Staryu", "Corsola"],
+    
     "screen_size": [0, 0, 1920, 1080],
     "bounding_boxes": {
         "bubble": [1364, 241],
         "too_slow": [1230, 525],
-        "encounter": [1139, 467, 1231, 501]
+        "encounter": [1139, 467, 1231, 501],
+        "top_screen": [1025, 53, 1855, 551],
+        "bottom_screen": [1433, 793]
     },
     "colors": {
         "bubble": [255, 255, 255],
-        "too_slow": [217, 56, 44]
+        "too_slow": [217, 56, 44],
+        "bottom_screen": [0, 0, 0]
     },
     "buttons": {
         "A": "vg.XUSB_BUTTON.XUSB_GAMEPAD_B",
