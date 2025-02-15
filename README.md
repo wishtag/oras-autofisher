@@ -4,6 +4,8 @@ A python program for Omega Ruby and Alpha Sapphire playing on Citra that automat
 This is a project I was really proud of at the time, but now that I'm uploading my stuff to GitHub I realize how not user-friendly this is.  
 
 I don't have any plans to update this, or even write instructions on how to set this up for yourself. This repository was really only created as a way to archive and showcase a project I was proud of.  
+
+**UPDATE:** I changed my mind and DID end up updating it. I've added a settings file and recoded a lot. The instructions probably aren't the best but I hope whoever is reading this is able to figure it out. Even with the changes I've made this still isn't perfect, though.
 # Features
 ## Automatic Fishing
 Through the `pydirectinput` library, the program is able to send inputs to the game. After sending the input to send your fishing rod out, the program will monitor the screen until the exclamation mark bubble appears. Once that shows up, it sends the input to reel it in.  
@@ -18,13 +20,9 @@ Through the use of a discord webhook, the program will notify you when it finds 
 <img src="img/Webhookoutput.png" alt="Webhook">
 # Showcase
 Here's a little video showing off the program in action  
-https://github.com/user-attachments/assets/e70163cd-f107-4e91-9837-0fb4a49f178e
-
-
-Ill move this later but for now i gotta write it somewhere
-
+https://github.com/user-attachments/assets/e70163cd-f107-4e91-9837-0fb4a49f178e  
 # Setup
-I designed this program with a specific window position, size, and resolution. So if you're set up isn't the exact same as mine then you'll have some extra work to do.  
+I designed this program with a specific window position, size, and resolution. So if you're set up isn't the exact same as mine then you'll have some extra work to do. I didn't know where to put this but make sure you have your fishing rod registered.  
 ## My Setup
 I have my setup organized like this:  
 <img src="img/setup.png" alt="Setup" style="width:100%;">  
@@ -56,7 +54,7 @@ From here you repeat basically the same steps explained in the bubble section. T
 **Step 3.** Use the selection tool to make a box around the encounter's name. You don't want it to be too big but you also don't want it to be too small. For reference, here's the crop that I use:  
 <img src="img/Wailmer.png" alt="Wailmer">  
 Yes, part of the name is cropped out but that is fine.  
-**Step 4.** Find the distance of each side from 0. For me, the left side of my selection is 1139 pixels from 0 and my right side is 1231 pixels from it. I'm probably not doing a good job explaining it but there are python scripts included that you can use to test your coordinates.  
+**Step 4.** Find the distance of each side from 0. For me, the left side of my selection is 1139 pixels from 0 and my right side is 1231 pixels from it.  
 **Step 5.** Enter the numbers you found into `settings.json` in the `"encounter": []` area under `"bounding_boxes"`. It should be formatted like this: `"encounter": [left, top, right, bottom]`. For reference, here is mine: `"encounter": [1139, 467, 1231, 501]`.  
 ### Top Screen
 **Step 1.** Take a screenshot of your whole screen.  
@@ -66,3 +64,12 @@ Yes, part of the name is cropped out but that is fine.
 **Step 1.** Take a screenshot of your whole screen.  
 **Step 2.** Pick any pixel to focus on in the bottom screen of the 3DS.  
 **Step 3.** Repeat the steps you did for bubble and too slow. At this point, you already know where to save the values, make sure you save the color, though. The color should just be solid black, but depenning on your display settings, it could be slightly different so that's why you're saving it.  
+## Settings
+We've already been exploring the settings quite a bit but there's still more to do. The names of the settings are self explanatory so I'm sure you can figure it out yourself. The one part I will address though is the `"encounter_names"` setting. The order of the names should be the same order as they are in the `encounters` folder. So if Staryu is my `encounter1.png` then Staryu will be the first name in `"encounter_names"`.  
+# Usage
+## `register_gamepad.py`
+This is just a simple python script used to help setup controls. Go to the controls section in Citra and create a new profile, the name doesn't matter. Click the "Auto Map" button and then start the python script. The python script will start counting down, before it finishes click the "OK" button on the popup from Citra. If everything worked correctly, the controller should be mapped.  
+## `capture_encounters.py`
+For the main part of this program to work, you first need screenshots of each possible encounter, that's what this python script is for. Based on the value you set for `"possible_encounters"` the program will run until it has that many different screenshots. Note: this script does not have shiny detection, so if you're unfortunate enough to run into a shiny while this script is running, the shiny will be ignored.  
+## `shiny_by_delay.py`
+This is where everything really goes down. If you've successfully setup everything else then you just have to let this program run. Once it finds a shiny you'll be notified. This also logs the encounters and time spent to `resets.json` but note that most of the values don't reset on their own, so after you get a shiny you gotta go reset it yourself.

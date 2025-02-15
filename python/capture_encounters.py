@@ -4,49 +4,45 @@ from datetime import datetime
 from pytz import timezone
 import imagehash
 import time
-import pydirectinput
 import json
 from discord_webhook import DiscordWebhook, DiscordEmbed
+import vgamepad as vg
+
+gamepad = vg.VX360Gamepad()
+
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def read_json(file):
-    f = open (file, "r")
-    data = json.loads(f.read())
-    f.close()
+    with open(os.path.abspath(file), 'r') as f:
+        data = json.loads(f.read())
     return data
 
 def write_json(file, object):
-    f = open (file, "w")
-    json.dump(object, f)
-    f.close()
+    with open(os.path.abspath(file), 'w') as f:
+        json.dump(object, f)
 
-should_run = True
-count_towards_resets = True
-possible_encounters = 2
+def press_and_release(button):
+    gamepad.press_button(button=eval(buttons[button]))
+    gamepad.update()
+    time.sleep(0.1)
+    gamepad.release_button(button=eval(buttons[button]))
+    gamepad.update()
 
-json_time = read_json("resets.json")["total_seconds"]
-json_time2 = read_json("resets.json")["total_seconds_since_last_shiny"]
+settings = read_json("./settings.json")
+possible_encounters = settings["possible_encounters"]
+buttons = settings["buttons"]
+colors = settings["colors"]
+bounding_boxes = settings["bounding_boxes"]
 
-hour = datetime.now(timezone('US/Central')).hour
-minute = datetime.now(timezone('US/Central')).minute
-second = datetime.now(timezone('US/Central')).second
-start_time = (hour*60**2) + (minute*60) + second
-
-bubble_image = 'img/bubble.png'
-img = Image.open(bubble_image)
-bubble_hash = imagehash.whash(img)
-img.close()
-
-tooSlow_image = 'img/tooSlow.png'
-img = Image.open(tooSlow_image)
-tooSlow_hash = imagehash.whash(img)
-img.close()
-
-print("Make sure the window is focused on")
-time.sleep(3)
+for i in range(3,0,-1):
+    clear_screen()
+    print(f"Starting in: {i}")
+    time.sleep(1)
 
 while should_run:
     try:
-        os.remove("img/screenshot.png")
+        os.remove(os.path.abspath("./screenshot.png"))
     except:
         pass
     similarity = 100
@@ -138,10 +134,3 @@ while should_run:
             #time.sleep(0.2)
             pydirectinput.press('a')
             time.sleep(6)
-    else:
-        if count_towards_resets:
-            resets = read_json("resets.json")
-            resets["chain"] = 0
-            write_json("resets.json", resets)
-        pydirectinput.press('a')
-        time.sleep(1)

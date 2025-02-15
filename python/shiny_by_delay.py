@@ -47,31 +47,14 @@ minute = datetime.now(timezone('US/Central')).minute
 second = datetime.now(timezone('US/Central')).second
 start_time = (hour*60**2) + (minute*60) + second
 
-try:
-    encounter1_image = 'img/encounter1.png'
-    img = Image.open(encounter1_image)
-    encounter1_hash = imagehash.whash(img)
-    img.close()
-except:
-    encounter1_hash = 100
+encounter_hashes = []
 
-try:
-    encounter2_image = 'img/encounter2.png'
-    img = Image.open(encounter2_image)
-    encounter2_hash = imagehash.whash(img)
+for i in range(possible_encounters):
+    img = Image.open(os.path.abspath(f"./encounters/encounter{i+1}.png"))
+    encounter_hash = imagehash.whash(img)
+    encounter_hashes.append(encounter_hash)
     img.close()
-except:
-    encounter2_hash = 100
 
-try:
-    encounter3_image = 'img/encounter3.png'
-    img = Image.open(encounter3_image)
-    encounter3_hash = imagehash.whash(img)
-    img.close()
-except:
-    encounter3_hash = 100
-
-encounter_hashes = [encounter1_hash, encounter2_hash, encounter3_hash]
 encounter_names = settings["encounter_names"]
 
 for i in range(3,0,-1):
@@ -115,7 +98,7 @@ while isShiny == False:
             encounter.close()
         except:
             pass
-        
+
         encountered = 100
         while encountered == 100:
             time.sleep(0.01)

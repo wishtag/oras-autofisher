@@ -1,7 +1,7 @@
 {
-    "possible_encounters": 3,
-    "encounter_names": ["Wailmer", "Staryu", "Corsola"],
-    
+    "possible_encounters": 2,
+    "encounter_names": ["Staryu", "Wailmer"],
+
     "screen_size": [0, 0, 1920, 1080],
     "bounding_boxes": {
         "bubble": [1364, 241],
