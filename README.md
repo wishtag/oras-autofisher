@@ -43,5 +43,19 @@ From here, expand the selection box to the top right of your entire image, like 
 <img src="readme_img/bubble3.png" alt="Bubble3" style="width:100%;">  
 Now look for the size of selection box, for me its located in the bottom left.  
 <img src="readme_img/bubble4.png" alt="Bubble4" style="width:100%;">  
-Step 5. Now go into your `settings.json` file and located the area where it says `"bubble": [],`  
+Step 5. Now go into your `settings.json` file and locate where it says `"bounding_boxes"` and then look for area inside it where it says `"bubble": []`  
 Step 6. Enter the two numbers you found, for me my numbers were 1364 and 241 so mine would like like this: `"bubble": [1364, 241]`  
+Step 7. Take the RGB values of the pixel and enter it in the `"bubble": []` section under `"colors"`, yours should look something like this: `"bubble": [255, 255, 255]`
+### Too Slow
+Step 1. Send out your fishing rod.  
+Step 2. Purposely do not reel in the catch so that the text box saying you were "too slow" appears on screen.  
+From here you repeat basically the same steps explained in the bubble section. The pixel you want to aim for this time should be one of the red parts near the bottom of the text box. Make sure you save the position and color.
+### Encounter Names
+Step 1. Fish up an encounter.  
+Step 2. When the text box that says "A wild something appeared" Take a screenshot of the whole screen.  
+Step 3. Use the selection tool to make a box around the encounter's name. You don't want it to be too big but you also don't want it to be too small. For reference, here's the crop that I use:  
+<img src="readme_img/Wailmer.png" alt="Wailmer" style="width:100%;">  
+Yes, part of the name is cropped out but that is fine.  
+Step 4. Find the distance of each side from 0. For me, the left side of my selection is 1139 pixels from 0 and my right side is 1231 pixels from it. I'm probably not doing a good job explaining it but there are python scripts included that you can use to test your coordinates.  
+Step 5. Enter the numbers you found into `settings.json` in the `"encounter": []` area under `"bounding_boxes"`. It should be formatted like this: `"encounter": [left, top, right, bottom]`. For reference, here is mine: `"encounter": [1139, 467, 1231, 501]`.  
+### Top Screen

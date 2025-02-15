@@ -1,8 +1,15 @@
 {
     "possible_encounters": 3,
     "encounter_names": ["Wailmer", "Staryu", "Corsola"],
+    "screen_size": [0, 0, 1920, 1080],
     "bounding_boxes": {
-        "exclamation": [1406, 247, 1468, 308]
+        "bubble": [1364, 241],
+        "too_slow": [1230, 525],
+        "encounter": [1139, 467, 1231, 501]
+    },
+    "colors": {
+        "bubble": [255, 255, 255],
+        "too_slow": [217, 56, 44]
     },
     "buttons": {
         "A": "vg.XUSB_BUTTON.XUSB_GAMEPAD_B",

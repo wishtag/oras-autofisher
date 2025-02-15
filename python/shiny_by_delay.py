@@ -37,6 +37,8 @@ json_time = resets["total_seconds"]
 json_time2 = resets["total_seconds_since_last_shiny"]
 possible_encounters = settings["possible_encounters"]
 buttons = settings["buttons"]
+colors = settings["colors"]
+bounding_boxes = settings["bounding_boxes"]
 
 similarity = 100
 encountered = 100
@@ -46,11 +48,6 @@ hour = datetime.now(timezone('US/Central')).hour
 minute = datetime.now(timezone('US/Central')).minute
 second = datetime.now(timezone('US/Central')).second
 start_time = (hour*60**2) + (minute*60) + second
-
-for i in range(3,0,-1):
-    clear_screen()
-    print(f"Starting in: {i}")
-    time.sleep(1)
 
 try:
     encounter1_image = 'img/encounter1.png'
@@ -79,6 +76,10 @@ except:
 encounter_hashes = [encounter1_hash, encounter2_hash, encounter3_hash]
 encounter_names = settings["encounter_names"]
 
+for i in range(3,0,-1):
+    clear_screen()
+    print(f"Starting in: {i}")
+    time.sleep(1)
 
 try:
     os.path.abspath('./img/screenshot.png')
@@ -94,27 +95,24 @@ while isShiny == False:
     #the loop ends when the !! bubble appears on screen
     while True:
         time.sleep(0.01)
-        screenshot = ImageGrab.grab(bbox=windows[i][0])
+        screenshot = ImageGrab.grab(bbox=settings["screen_size"])
         pixels = screenshot.load()
         screenshot.close()
 
-        r, g, b = pixels[0, 0]
-        if r != 0 and g != 0 and b != 0:
+        r, g, b = pixels[bounding_boxes["bubble"][0], bounding_boxes["bubble"][1]]
+        if r == colors["bubble"][0] and g == colors["bubble"][1] and b == colors["bubble"][2]:
             break
-    pydirectinput.press('a')
+    press_and_release("A")
     time.sleep(3)
 
     #seeing if you missed the reel in
     #checks to see if the "No! You reeled it in too slow!"
-    screenshot = ImageGrab.grab(bbox=(1029,416,1851,528))
-    screenshot_hash = imagehash.whash(screenshot)
-    similarity = tooSlow_hash - screenshot_hash
-    #print(similarity)
-
+    screenshot = ImageGrab.grab(bbox=settings["screen_size"])
+    pixels = screenshot.load()
     screenshot.close()
-
-    # if similarity > 15 then you didnt miss the reel in
-    if similarity > 15:
+    r, g, b = pixels[bounding_boxes["too_slow"][0], bounding_boxes["too_slow"][1]]
+    # if rgb isnt equal to those values then you didnt miss the reel in
+    if r != colors["too_slow"][0] and g != colors["too_slow"][1] and b != colors["too_slow"][2]:
         #finding the encounter
         #the loop ends once the pokemons name appears on screen
         try:
@@ -124,7 +122,7 @@ while isShiny == False:
         while encountered == 100:
             time.sleep(0.01)
             delay = delay + 1
-            encounter = ImageGrab.grab(bbox=(1139,467,1231,501))
+            encounter = ImageGrab.grab(bbox=bounding_boxes["encounter"])
             encounter_hash = imagehash.whash(encounter)
             for i in range(possible_encounters):
                 encounter_similarity = encounter_hashes[i] - encounter_hash
@@ -188,7 +186,7 @@ while isShiny == False:
             webhook.add_embed(embed)
             response = webhook.execute()
 
-            #resets["total_seconds_since_last_shiny"] = 0
+            resets["total_seconds_since_last_shiny"] = 0
             resets['resets_since_last_shiny'] = 0
             resets['chain'] = 0
             write_json("resets.json", resets)
