@@ -11,6 +11,9 @@ import vgamepad as vg
 
 gamepad = vg.VX360Gamepad()
 
+def clear_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def read_json(file):
     with open(os.path.abspath(file), 'r') as f:
         data = json.loads(f.read())
@@ -20,11 +23,20 @@ def write_json(file, object):
     with open(os.path.abspath(file), 'w') as f:
         json.dump(object, f)
 
+def press_and_release(button):
+    gamepad.press_button(button=eval(buttons[button]))
+    gamepad.update()
+    time.sleep(0.1)
+    gamepad.release_button(button=eval(buttons[button]))
+    gamepad.update()
+
 json_time = read_json("./resets.json")["total_seconds"]
 json_time2 = read_json("./resets.json")["total_seconds_since_last_shiny"]
+possible_encounters = read_json("./settings.json")["possible_encounters"]
+buttons = read_json("./settings.json")["buttons"]
+
 similarity = 100
 encountered = 100
-possible_encounters = read_json("./settings.json")["possible_encounters"]
 isShiny = False
 
 hour = datetime.now(timezone('US/Central')).hour
@@ -32,24 +44,10 @@ minute = datetime.now(timezone('US/Central')).minute
 second = datetime.now(timezone('US/Central')).second
 start_time = (hour*60**2) + (minute*60) + second
 
-print("Make sure the window is focused on")
-time.sleep(3)
-
-
-bubble_image = 'img/bubble.png'
-img = Image.open(bubble_image)
-bubble_hash = imagehash.whash(img)
-img.close()
-
-tooSlow_image = 'img/tooSlow.png'
-img = Image.open(tooSlow_image)
-tooSlow_hash = imagehash.whash(img)
-img.close()
-
-bottomScreen_image = 'img/bottomScreen.png'
-img = Image.open(bottomScreen_image)
-bottomScreen_hash = imagehash.whash(img)
-img.close()
+for i in range(3,0,-1):
+    clear_screen()
+    print(f"Starting in: {i}")
+    time.sleep(1)
 
 try:
     encounter1_image = 'img/encounter1.png'

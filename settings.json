@@ -4,6 +4,9 @@
         "exclamation": [1406, 247, 1468, 308]
     },
     "buttons": {
-        "fish": "y"
+        "A": "vg.XUSB_BUTTON.XUSB_GAMEPAD_B",
+        "B": "vg.XUSB_BUTTON.XUSB_GAMEPAD_A",
+        "X": "vg.XUSB_BUTTON.XUSB_GAMEPAD_Y",
+        "Y": "vg.XUSB_BUTTON.XUSB_GAMEPAD_X"
     }
 }
