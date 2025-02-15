@@ -1,11 +1,8 @@
 import os
 from PIL import ImageGrab, Image
-from datetime import datetime
-from pytz import timezone
 import imagehash
 import time
 import json
-from discord_webhook import DiscordWebhook, DiscordEmbed
 import vgamepad as vg
 
 gamepad = vg.VX360Gamepad()
@@ -40,56 +37,42 @@ for i in range(3,0,-1):
     print(f"Starting in: {i}")
     time.sleep(1)
 
+should_run = True
 while should_run:
     try:
         os.remove(os.path.abspath("./screenshot.png"))
     except:
         pass
-    similarity = 100
-    pydirectinput.press('x')
-    while similarity > 10:
+    press_and_release("Y")
+    #finding the !! bubble
+    #the loop ends when the !! bubble appears on screen
+    while True:
         time.sleep(0.005)
-        # !! bubble
-        screenshot = ImageGrab.grab(bbox=(1406, 247, 1468, 308))
-        screenshot_hash = imagehash.whash(screenshot)
-        similarity = bubble_hash - screenshot_hash
+        screenshot = ImageGrab.grab(bbox=settings["screen_size"])
+        pixels = screenshot.load()
         screenshot.close()
-    pydirectinput.press('a')
+
+        r, g, b = pixels[bounding_boxes["bubble"][0], bounding_boxes["bubble"][1]]
+        if r == colors["bubble"][0] and g == colors["bubble"][1] and b == colors["bubble"][2]:
+            break
+    press_and_release("A")
     time.sleep(3)
-    screenshot = ImageGrab.grab(bbox=(1092,416,1851,528))
-    screenshot_hash = imagehash.whash(screenshot)
-    similarity = tooSlow_hash - screenshot_hash
-    print(similarity)
+
+    screenshot = ImageGrab.grab(bbox=settings["screen_size"])
+    pixels = screenshot.load()
     screenshot.close()
-
-    if similarity > 15:
-        if count_towards_resets:
-            hour = datetime.now(timezone('US/Central')).hour
-            minute = datetime.now(timezone('US/Central')).minute
-            second = datetime.now(timezone('US/Central')).second
-            current_time = (hour*60**2) + (minute*60) + second
-            elapsed_time = current_time - start_time
-            resets = read_json("resets.json")
-            resets["resets"] = resets["resets"] + 1
-            resets["resets_since_last_shiny"] = resets["resets_since_last_shiny"] + 1
-            resets["chain"] = resets["chain"] + 1
-            resets["total_seconds"] = json_time + elapsed_time
-            resets["total_seconds_since_last_shiny"] = json_time2 + elapsed_time
-            write_json("resets.json", resets)
-
+    r, g, b = pixels[bounding_boxes["too_slow"][0], bounding_boxes["too_slow"][1]]
+    # if rgb isnt equal to those values then you didnt miss the reel in
+    if r != colors["too_slow"][0] and g != colors["too_slow"][1] and b != colors["too_slow"][2]:
         time.sleep(3.2)
-        encounter = ImageGrab.grab(bbox=(1139,467,1231,501)) #Nameplate
-        #encounter = ImageGrab.grab(bbox=(0,0,1920,1080)) #Full Screen
-        #encounter = ImageGrab.grab(bbox=(1025,53,1855,551)) #Full encounter
-        #encounter = ImageGrab.grab(bbox=(1348,146,1618,416)) #Box
+        encounter = ImageGrab.grab(bbox=bounding_boxes["encounter"])
         screenshot_hash = imagehash.whash(encounter)
 
         matched_encounter = False
         index = 99
         for i in range(possible_encounters):
             try:
-                encounter_image = f'img/encounter{i+1}.png'
-                img = Image.open(encounter_image)
+                img = Image.open(os.path.abspath(f"./encounters/encounter{i+1}.png"))
                 encounter_hash = imagehash.whash(img)
                 img.close()
 
@@ -103,34 +86,17 @@ while should_run:
 
         if matched_encounter == False:
             if index != 99:
-                encounter.save(f'img/encounter{index+1}.png')
-        
-        index = 99
-        for i in range(possible_encounters):
-            try:
-                encounter_image = f'img/encounter{i+1}.png'
-                img = Image.open(encounter_image)
-                encounter_hash = imagehash.whash(img)
-                img.close()
-            except:
-                index = i
-                break
+                encounter.save(os.path.abspath(f"./encounters/encounter{index+1}.png"))
 
         if index == 99:
             should_run = False
             print("Done!")
-            webhook = DiscordWebhook(url="", username="Sparkles")
-            embed = DiscordEmbed(title=f"Done Capturing Encounters", description=f"I finished lol", color="FCDE3A")
-            webhook.add_embed(embed)
-            response = webhook.execute()
-
         else:
-            #encounter.save("img/screenshot.png")
             encounter.close()
             time.sleep(6)
-            pydirectinput.press('down')
+            press_and_release("LEFT")
             #time.sleep(0.2)
-            pydirectinput.press('right')
+            press_and_release("RIGHT")
             #time.sleep(0.2)
-            pydirectinput.press('a')
+            press_and_release("A")
             time.sleep(6)

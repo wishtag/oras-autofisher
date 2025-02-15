@@ -1,10 +1,10 @@
 {
-    "possible_encounters": 2,
-    "encounter_names": ["Staryu", "Wailmer"],
+    "possible_encounters": 3,
+    "encounter_names": ["Magikarp", "Tentacool", "Wailmer"],
 
     "screen_size": [0, 0, 1920, 1080],
     "bounding_boxes": {
-        "bubble": [1364, 241],
+        "bubble": [1374, 254],
         "too_slow": [1230, 525],
         "encounter": [1139, 467, 1231, 501],
         "top_screen": [1025, 53, 1855, 551],
@@ -19,6 +19,10 @@
         "A": "vg.XUSB_BUTTON.XUSB_GAMEPAD_B",
         "B": "vg.XUSB_BUTTON.XUSB_GAMEPAD_A",
         "X": "vg.XUSB_BUTTON.XUSB_GAMEPAD_Y",
-        "Y": "vg.XUSB_BUTTON.XUSB_GAMEPAD_X"
+        "Y": "vg.XUSB_BUTTON.XUSB_GAMEPAD_X",
+        "UP": "vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_UP",
+        "DOWN": "vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_DOWN",
+        "LEFT": "vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_LEFT",
+        "RIGHT": "vg.XUSB_BUTTON.XUSB_GAMEPAD_DPAD_RIGHT"
     }
 }
