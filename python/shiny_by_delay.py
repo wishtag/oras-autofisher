@@ -30,10 +30,13 @@ def press_and_release(button):
     gamepad.release_button(button=eval(buttons[button]))
     gamepad.update()
 
-json_time = read_json("./resets.json")["total_seconds"]
-json_time2 = read_json("./resets.json")["total_seconds_since_last_shiny"]
-possible_encounters = read_json("./settings.json")["possible_encounters"]
-buttons = read_json("./settings.json")["buttons"]
+resets = read_json("./resets.json")
+settings = read_json("./settings.json")
+
+json_time = resets["total_seconds"]
+json_time2 = resets["total_seconds_since_last_shiny"]
+possible_encounters = settings["possible_encounters"]
+buttons = settings["buttons"]
 
 similarity = 100
 encountered = 100
@@ -74,11 +77,11 @@ except:
     encounter3_hash = 100
 
 encounter_hashes = [encounter1_hash, encounter2_hash, encounter3_hash]
-encounter_names = ["Wailmer", "Staryu", "Corsola"]
+encounter_names = settings["encounter_names"]
 
 
 try:
-    os.remove("img/screenshot.png")
+    os.path.abspath('./img/screenshot.png')
 except:
     pass
 
@@ -86,15 +89,18 @@ while isShiny == False:
     encountered = 100
     similarity = 100
     delay = 0
-    pydirectinput.press('x')
+    press_and_release("Y")
     #finding the !! bubble
     #the loop ends when the !! bubble appears on screen
-    while similarity > 10:
-        time.sleep(0.005)
-        screenshot = ImageGrab.grab(bbox=(1406, 247, 1468, 308))
-        screenshot_hash = imagehash.whash(screenshot)
-        similarity = bubble_hash - screenshot_hash
+    while True:
+        time.sleep(0.01)
+        screenshot = ImageGrab.grab(bbox=windows[i][0])
+        pixels = screenshot.load()
         screenshot.close()
+
+        r, g, b = pixels[0, 0]
+        if r != 0 and g != 0 and b != 0:
+            break
     pydirectinput.press('a')
     time.sleep(3)
 

@@ -28,5 +28,20 @@ I designed this program with a specific window position, size, and resolution. S
 ## My Setup
 I have my setup organized like this:  
 <img src="readme_img/setup.png" alt="Setup" style="width:100%;">  
-I'm on a `1080p` display, with my windows split so VS Code takes up the left half and the Citra emulator takes up the right half. In Citra, I have `Screen Layout` set to `Default` along with `Show Status Bar` enabled. If you replicate this setup, you get to skip to here(but like some html i dont even know but just make it where when you click "here" it takes them to the next step they need to do). Otherwise, keep following these steps.  
-## Getting Bounding Boxes
+I'm on a `1080p` display, with my windows split so VS Code takes up the left half and the Citra emulator takes up the right half. In Citra, I have `Screen Layout` set to `Default` along with `Show Status Bar` enabled. If you replicate this setup, you might be able to skip a few steps, but I wouldn't recommend it.  
+## Getting Positions
+Most of this program relies on detecting colors to function so we need to make sure we configure everything so it can look for them.  
+### Bubble
+Step 1. Send out your fishing rod.  
+Step 2. When the exclamation mark bubble appears, take a screenshot of your **whole** screen. Your screenshot should be the size of your display so if you have a `1080p` display, your screenshot should be `1920x1080` pixels.  
+Step 3. Open the screenshot in an image editing software, I use paint.net(put a hyperlink here).  
+Step 4. Determine how many pixels the specific pixel we will be focusing on is from the left and top of the image. The way I phrased that might be a little confusing so here is some visuals:  
+<img src="readme_img/bubble1.png" alt="Bubble1" style="width:100%;">  
+The red pixel you see in that screenshot is the pixel we are aiming to find out the coordinates of (you shouldn't actually have a red pixel there, I just put it there so you could tell which pixel I was talking about). From here create a selection box that has the pixel in the bottom right corner, like this:  
+<img src="readme_img/bubble2.png" alt="Bubble2" style="width:100%;">  
+From here, expand the selection box to the top right of your entire image, like this:  
+<img src="readme_img/bubble3.png" alt="Bubble3" style="width:100%;">  
+Now look for the size of selection box, for me its located in the bottom left.  
+<img src="readme_img/bubble4.png" alt="Bubble4" style="width:100%;">  
+Step 5. Now go into your `settings.json` file and located the area where it says `"bubble": [],`  
+Step 6. Enter the two numbers you found, for me my numbers were 1364 and 241 so mine would like like this: `"bubble": [1364, 241]`  

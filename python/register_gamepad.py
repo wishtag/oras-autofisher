@@ -23,5 +23,5 @@ for i in range(3,0,-1):
     print(i)
     time.sleep(1)
 
-press_and_release("A")
+press_and_release("Y")
 time.sleep(1)
