@@ -19,3 +19,14 @@ Through the use of a discord webhook, the program will notify you when it finds 
 # Showcase
 Here's a little video showing off the program in action  
 https://github.com/user-attachments/assets/e70163cd-f107-4e91-9837-0fb4a49f178e
+
+
+Ill move this later but for now i gotta write it somewhere
+
+# Setup
+I designed this program with a specific window position, size, and resolution. So if you're set up isn't the exact same as mine then you'll have some extra work to do.  
+## My Setup
+I have my setup organized like this:  
+<img src="readme_img/setup.png" alt="Setup" style="width:100%;">  
+I'm on a `1080p` display, with my windows split so VS Code takes up the left half and the Citra emulator takes up the right half. In Citra, I have `Screen Layout` set to `Default` along with `Show Status Bar` enabled. If you replicate this setup, you get to skip to here(but like some html i dont even know but just make it where when you click "here" it takes them to the next step they need to do). Otherwise, keep following these steps.  
+## Getting Bounding Boxes
