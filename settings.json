@@ -15,6 +15,12 @@
         "too_slow": [217, 56, 44],
         "bottom_screen": [0, 0, 0]
     },
+    "discord": {
+        "url": "",
+        "name": "Sparkles",
+        "icon": "https://em-content.zobj.net/source/apple/391/sparkles_2728.png",
+        "game": "Alpha Sapphire"
+    },
     "buttons": {
         "A": "vg.XUSB_BUTTON.XUSB_GAMEPAD_B",
         "B": "vg.XUSB_BUTTON.XUSB_GAMEPAD_A",

@@ -39,6 +39,7 @@ possible_encounters = settings["possible_encounters"]
 buttons = settings["buttons"]
 colors = settings["colors"]
 bounding_boxes = settings["bounding_boxes"]
+discord = settings["discord"]
 
 isShiny = False
 
@@ -63,7 +64,7 @@ for i in range(3,0,-1):
     time.sleep(1)
 
 try:
-    os.path.abspath('./img/screenshot.png')
+    os.remove(os.path.abspath('./screenshot.png'))
 except:
     pass
 
@@ -118,21 +119,21 @@ while isShiny == False:
         second = datetime.now(timezone('US/Central')).second
         current_time = (hour*60**2) + (minute*60) + second
         elapsed_time = current_time - start_time
-        resets = read_json("resets.json")
+        resets = read_json("./resets.json")
         resets["resets"] = resets["resets"] + 1
         resets["resets_since_last_shiny"] = resets["resets_since_last_shiny"] + 1
         resets["chain"] = resets["chain"] + 1
         resets["total_seconds"] = json_time + elapsed_time
         resets["total_seconds_since_last_shiny"] = json_time2 + elapsed_time
-        write_json("resets.json", resets)
+        write_json("./resets.json", resets)
         
         #print(delay)
         encounter.close()
         
 
         if delay > 110:
-            encounter = ImageGrab.grab(bbox=(1025,53,1855,551))
-            encounter.save("img/screenshot.png")
+            encounter = ImageGrab.grab(bbox=bounding_boxes["top_screen"])
+            encounter.save(os.path.abspath('./screenshot.png'))
             encounter.close()
 
             isShiny = True
@@ -140,7 +141,7 @@ while isShiny == False:
             pyautogui.hotkey('ctrl', 'c')
             print("Save state created")
 
-            resets = read_json("resets.json")
+            resets = read_json("./resets.json")
 
             seconds = resets["total_seconds_since_last_shiny"]
             hours = seconds // 3600
@@ -154,15 +155,15 @@ while isShiny == False:
             seconds = seconds % 60
             time_formatted = f"{hours} hours, {minutes} minutes, and {seconds} seconds"
 
-            webhook = DiscordWebhook(url="", username="Sparkles")
-            with open("img/screenshot.png", "rb") as f:
+            webhook = DiscordWebhook(url=discord["url"], username=discord["name"])
+            with open(os.path.abspath('./screenshot.png'), "rb") as f:
                 webhook.add_file(file=f.read(), filename="screenshot.png")
             embed = DiscordEmbed(title=f"Shiny {encounter_names[encountered]} Found", description=f"{resets['resets_since_last_shiny']} encounters since last shiny over the span of {since_last_shiny_time_formatted}, with a chain of {resets['chain']}", color="FCDE3A")
-            embed.set_author(name="Shiny Found", icon_url="https://em-content.zobj.net/source/apple/391/sparkles_2728.png",)
+            embed.set_author(name="Shiny Found", icon_url=discord["icon"])
             embed.set_image(url="attachment://screenshot.png")
             embed.add_embed_field(name="Total Encounters", value=resets['resets'])
             embed.add_embed_field(name="Total Time", value=time_formatted)
-            embed.set_footer(text="Alpha Sapphire")
+            embed.set_footer(text=discord["game"])
             embed.set_timestamp()
             webhook.add_embed(embed)
             response = webhook.execute()
@@ -170,29 +171,31 @@ while isShiny == False:
             resets["total_seconds_since_last_shiny"] = 0
             resets['resets_since_last_shiny'] = 0
             resets['chain'] = 0
-            write_json("resets.json", resets)
+            write_json("./resets.json", resets)
         else:
-            similarity = 100
             print("Normal encounter delay")
             #waiting for the bottom screen
             #the loop ends when the bottom screen loads
-            while similarity > 10:
+            while True:
                 time.sleep(0.005)
-                screenshot = ImageGrab.grab(bbox=(1108,551,1772,1050))
-                screenshot_hash = imagehash.whash(screenshot)
-                similarity = bottomScreen_hash - screenshot_hash
+                screenshot = ImageGrab.grab(bbox=settings["screen_size"])
+                pixels = screenshot.load()
                 screenshot.close()
+                print(pixels[bounding_boxes["bottom_screen"][0], bounding_boxes["bottom_screen"][1]])
+                r, g, b = pixels[bounding_boxes["bottom_screen"][0], bounding_boxes["bottom_screen"][1]]
+                if r != colors["bottom_screen"][0] or g != colors["bottom_screen"][1] or b != colors["bottom_screen"][2]:
+                    break
             time.sleep(1)
-            pydirectinput.press('left')
+            press_and_release("LEFT")
             #time.sleep(0.2)
-            pydirectinput.press('right')
+            press_and_release("RIGHT")
             #time.sleep(0.2)
-            pydirectinput.press('a')
+            press_and_release("A")
             time.sleep(6)
     else:
         print("Chain Broken")
-        resets = read_json("resets.json")
+        resets = read_json("./resets.json")
         resets["chain"] = 0
-        write_json("resets.json", resets)
-        pydirectinput.press('a')
+        write_json("./resets.json", resets)
+        press_and_release("A")
         time.sleep(1)
