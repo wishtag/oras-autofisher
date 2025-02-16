@@ -1,3 +1,4 @@
+<img src="img/banner.png" alt="banner" style="width:100%;">  
 # ORAS AutoFisher
 A python program for Omega Ruby and Alpha Sapphire playing on Citra that automatically fishes for you until it finds a shiny  
 
@@ -32,7 +33,7 @@ Most of this program relies on detecting colors to function so we need to make s
 ### Bubble
 **Step 1.** Send out your fishing rod.  
 **Step 2.** When the exclamation mark bubble appears, take a screenshot of your **whole** screen. Your screenshot should be the size of your display so if you have a `1080p` display, your screenshot should be `1920x1080` pixels.  
-**Step 3.** Open the screenshot in an image editing software, I use paint.net(put a hyperlink here).  
+**Step 3.** Open the screenshot in an image editing software, I use [paint.net](https://www.getpaint.net/).  
 **Step 4.** Determine how many pixels the specific pixel we will be focusing on is from the left and top of the image. The way I phrased that might be a little confusing so here is some visuals:  
 <img src="img/bubble1.png" alt="Bubble1" style="width:100%;">  
 The red pixel you see in that screenshot is the pixel we are aiming to find out the coordinates of (you shouldn't actually have a red pixel there, I just put it there so you could tell which pixel I was talking about). From here create a selection box that has the pixel in the bottom right corner, like this:  
@@ -63,7 +64,7 @@ Yes, part of the name is cropped out but that is fine.
 ### Bottom Screen
 **Step 1.** Take a screenshot of your whole screen.  
 **Step 2.** Pick any pixel to focus on in the bottom screen of the 3DS.  
-**Step 3.** Repeat the steps you did for bubble and too slow. At this point, you already know where to save the values, make sure you save the color, though. The color should just be solid black, but depenning on your display settings, it could be slightly different so that's why you're saving it.  
+**Step 3.** Repeat the steps you did for bubble and too slow. At this point, you already know where to save the values, make sure you save the color, though. The color should just be solid black, but depending on your display settings, it could be slightly different so that's why you're saving it.  
 ## Settings
 We've already been exploring the settings quite a bit but there's still more to do. The names of the settings are self explanatory so I'm sure you can figure it out yourself. The one part I will address though is the `"encounter_names"` setting. The order of the names should be the same order as they are in the `encounters` folder. So if Staryu is my `encounter1.png` then Staryu will be the first name in `"encounter_names"`.  
 # Usage
