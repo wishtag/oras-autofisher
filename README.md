@@ -1,4 +1,4 @@
-<img src="img/banner.png" alt="banner" style="width:100%;">  
+# <img src="img/banner.png" alt="banner" style="width:100%;">  
 # ORAS AutoFisher
 A python program for Omega Ruby and Alpha Sapphire playing on Citra that automatically fishes for you until it finds a shiny  
 
